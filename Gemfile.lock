@@ -170,7 +170,7 @@ GEM
       date
       net-protocol
     net-pop (0.1.2)
-      net-protocol (>= 0)
+      net-protocol
     net-protocol (0.2.2)
       timeout
     net-scp (4.1.0)
@@ -345,11 +345,11 @@ GEM
       ostruct
     stringio (3.2.0)
     thor (1.5.0)
-    thruster (0.1.18)
-    thruster (0.1.18-aarch64-linux)
-    thruster (0.1.18-arm64-darwin)
-    thruster (0.1.18-x86_64-darwin)
-    thruster (0.1.18-x86_64-linux)
+    thruster (0.1.19)
+    thruster (0.1.19-aarch64-linux)
+    thruster (0.1.19-arm64-darwin)
+    thruster (0.1.19-x86_64-darwin)
+    thruster (0.1.19-x86_64-linux)
     timeout (0.6.0)
     tsort (0.2.0)
     tzinfo (2.0.6)
