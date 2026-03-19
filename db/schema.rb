@@ -10,8 +10,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 0) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_19_142741) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
+  create_table "companies", force: :cascade do |t|
+    t.boolean "active", default: true
+    t.string "business_name"
+    t.string "ccc"
+    t.string "cif"
+    t.string "city"
+    t.string "contact_email"
+    t.string "contact_phone_main"
+    t.string "contact_phone_secondary"
+    t.datetime "created_at", null: false
+    t.string "door"
+    t.string "floor"
+    t.string "logo_url"
+    t.string "name", null: false
+    t.string "number"
+    t.string "postal_code"
+    t.string "province"
+    t.string "slug", null: false
+    t.string "street"
+    t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_companies_on_active"
+    t.index ["slug"], name: "index_companies_on_slug", unique: true
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.boolean "active", default: true
+    t.bigint "company_id"
+    t.datetime "created_at", null: false
+    t.string "email", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.datetime "last_sign_in_at"
+    t.string "password_digest", null: false
+    t.integer "role", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_users_on_company_id"
+    t.index ["email"], name: "index_users_on_email", unique: true
+  end
 end

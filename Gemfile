@@ -1,6 +1,8 @@
 source "https://rubygems.org"
 
 gem "bootsnap", require: false
+gem "bcrypt"
+gem "jwt"
 gem "kamal", require: false
 gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
