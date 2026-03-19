@@ -27,3 +27,7 @@ end
 group :development do
   gem "pry-rails"
 end
+
+group :production do
+  gem "net-pop", github: "ruby/net-pop"
+end
