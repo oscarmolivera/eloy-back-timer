@@ -4,16 +4,15 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      get  "health", to: "health#show"
+      get "health", to: "health#show"
 
-      namespace :auth do
-        post   "login",   to: "auth#login"
-        post   "refresh", to: "auth#refresh"
-        delete "logout",  to: "auth#logout"
-      end
+      # Auth routes (fixed — no nested module)
+      post   "auth/login",   to: "auth#login"
+      post   "auth/refresh", to: "auth#refresh"
+      delete "auth/logout",  to: "auth#logout"
 
       namespace :admin do
-        resources :companies, except: [:new, :edit]
+        resources :companies, except: [ :new, :edit ]
       end
     end
   end
