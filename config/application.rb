@@ -40,5 +40,8 @@ module EloyBackTimer
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    # Allow HTML rendering for the API docs page
+    config.middleware.use ActionDispatch::Flash
   end
 end
