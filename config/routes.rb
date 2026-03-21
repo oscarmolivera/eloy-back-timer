@@ -16,4 +16,10 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  # API Docs routes (fixed — no nested module)
+  scope "/api-docs" do
+    get "/",         to: "api_docs#show",  as: :api_docs
+    get "/spec.json", to: "api_docs#spec",  as: :api_docs_spec
+  end
 end
