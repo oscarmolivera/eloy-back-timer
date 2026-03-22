@@ -16,21 +16,21 @@ auth_logout:
   security: [{ 'BearerAuth': [] }, { 'ApiKeyAuth': [] }]
 admin_companies_index:
   summary: 'List all companies'
-  tags: ['Admin::Companies']
+  tags: ['Admin - Companies']
   security: [{ 'BearerAuth': [] }, { 'ApiKeyAuth': [] }]
 admin_companies_create:
   summary: 'Create a new company'
-  tags: ['Admin::Companies']
+  tags: ['Admin - Companies']
   security: [{ 'BearerAuth': [] }, { 'ApiKeyAuth': [] }]
 admin_companies_show:
   summary: 'Get a single company by ID'
-  tags: ['Admin::Companies']
+  tags: ['Admin - Companies']
   security: [{ 'BearerAuth': [] }, { 'ApiKeyAuth': [] }]
 admin_companies_update:
   summary: 'Update a company by ID'
-  tags: ['Admin::Companies']
+  tags: ['Admin - Companies']
   security: [{ 'BearerAuth': [] }, { 'ApiKeyAuth': [] }]
 admin_companies_destroy:
   summary: 'Delete (deactivate) a company by ID'
-  tags: ['Admin::Companies']
+  tags: ['Admin - Companies']
   security: [{ 'BearerAuth': [] }, { 'ApiKeyAuth': [] }]

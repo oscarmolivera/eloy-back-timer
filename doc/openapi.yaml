@@ -14,7 +14,10 @@ paths:
     get:
       summary: List all companies
       tags:
-      - Admin::Companies
+      - Admin - Companies
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
       responses:
         '200':
           description: returns a list of all companies
@@ -87,7 +90,7 @@ paths:
                   - street
                   - updated_at
               example:
-              - id: 368
+              - id: 170
                 active: true
                 business_name:
                 ccc:
@@ -96,7 +99,7 @@ paths:
                 contact_email:
                 contact_phone_main:
                 contact_phone_secondary:
-                created_at: '2026-03-22T16:16:28.431Z'
+                created_at: '2026-03-22T19:57:57.374Z'
                 door:
                 floor:
                 logo_url:
@@ -106,8 +109,8 @@ paths:
                 province:
                 slug: acme-corporation-1
                 street:
-                updated_at: '2026-03-22T16:16:28.431Z'
-              - id: 369
+                updated_at: '2026-03-22T19:57:57.374Z'
+              - id: 171
                 active: true
                 business_name:
                 ccc:
@@ -116,7 +119,7 @@ paths:
                 contact_email:
                 contact_phone_main:
                 contact_phone_secondary:
-                created_at: '2026-03-22T16:16:28.434Z'
+                created_at: '2026-03-22T19:57:57.377Z'
                 door:
                 floor:
                 logo_url:
@@ -126,8 +129,8 @@ paths:
                 province:
                 slug: acme-corporation-2
                 street:
-                updated_at: '2026-03-22T16:16:28.434Z'
-              - id: 370
+                updated_at: '2026-03-22T19:57:57.377Z'
+              - id: 172
                 active: true
                 business_name:
                 ccc:
@@ -136,7 +139,7 @@ paths:
                 contact_email:
                 contact_phone_main:
                 contact_phone_secondary:
-                created_at: '2026-03-22T16:16:28.435Z'
+                created_at: '2026-03-22T19:57:57.379Z'
                 door:
                 floor:
                 logo_url:
@@ -146,14 +149,14 @@ paths:
                 province:
                 slug: acme-corporation-3
                 street:
-                updated_at: '2026-03-22T16:16:28.435Z'
-      security:
-      - BearerAuth: []
-      - ApiKeyAuth: []
+                updated_at: '2026-03-22T19:57:57.379Z'
     post:
       summary: Create a new company
       tags:
-      - Admin::Companies
+      - Admin - Companies
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -242,7 +245,7 @@ paths:
                 - street
                 - updated_at
               example:
-                id: 371
+                id: 173
                 active: true
                 business_name:
                 ccc:
@@ -251,7 +254,7 @@ paths:
                 contact_email:
                 contact_phone_main:
                 contact_phone_secondary:
-                created_at: '2026-03-22T16:16:28.477Z'
+                created_at: '2026-03-22T19:57:57.428Z'
                 door:
                 floor:
                 logo_url:
@@ -261,39 +264,39 @@ paths:
                 province:
                 slug: new-test-company
                 street:
-                updated_at: '2026-03-22T16:16:28.477Z'
-      security:
-      - BearerAuth: []
-      - ApiKeyAuth: []
+                updated_at: '2026-03-22T19:57:57.428Z'
   "/api/v1/admin/companies/{id}":
     delete:
       summary: Delete (deactivate) a company by ID
       tags:
-      - Admin::Companies
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-        example: 374
-      responses:
-        '204':
-          description: deletes a company
+      - Admin - Companies
       security:
       - BearerAuth: []
       - ApiKeyAuth: []
-    get:
-      summary: Get a single company by ID
-      tags:
-      - Admin::Companies
       parameters:
       - name: id
         in: path
         required: true
         schema:
           type: integer
-        example: 372
+        example: 176
+      responses:
+        '204':
+          description: deletes a company
+    get:
+      summary: Get a single company by ID
+      tags:
+      - Admin - Companies
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 174
       responses:
         '200':
           description: returns a single company
@@ -364,7 +367,7 @@ paths:
                 - street
                 - updated_at
               example:
-                id: 372
+                id: 174
                 active: true
                 business_name:
                 ccc:
@@ -373,7 +376,7 @@ paths:
                 contact_email:
                 contact_phone_main:
                 contact_phone_secondary:
-                created_at: '2026-03-22T16:16:28.485Z'
+                created_at: '2026-03-22T19:57:57.436Z'
                 door:
                 floor:
                 logo_url:
@@ -383,21 +386,21 @@ paths:
                 province:
                 slug: acme-corporation-4
                 street:
-                updated_at: '2026-03-22T16:16:28.485Z'
-      security:
-      - BearerAuth: []
-      - ApiKeyAuth: []
+                updated_at: '2026-03-22T19:57:57.436Z'
     put:
       summary: Update a company by ID
       tags:
-      - Admin::Companies
+      - Admin - Companies
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
       parameters:
       - name: id
         in: path
         required: true
         schema:
           type: integer
-        example: 373
+        example: 175
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -488,7 +491,7 @@ paths:
               example:
                 name: Updated Company Name
                 slug: acme-corporation-5
-                id: 373
+                id: 175
                 active: true
                 business_name:
                 ccc:
@@ -497,7 +500,7 @@ paths:
                 contact_email:
                 contact_phone_main:
                 contact_phone_secondary:
-                created_at: '2026-03-22T16:16:28.494Z'
+                created_at: '2026-03-22T19:57:57.449Z'
                 door:
                 floor:
                 logo_url:
@@ -505,15 +508,14 @@ paths:
                 postal_code:
                 province:
                 street:
-                updated_at: '2026-03-22T16:16:28.507Z'
-      security:
-      - BearerAuth: []
-      - ApiKeyAuth: []
+                updated_at: '2026-03-22T19:57:57.464Z'
   "/api/v1/auth/login":
     post:
       summary: Log in and obtain JWT access and refresh tokens
       tags:
       - Auth
+      security:
+      - ApiKeyAuth: []
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -560,10 +562,10 @@ paths:
                 - refresh_token
                 - user
               example:
-                access_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozMDIsImV4cCI6MTc3NDE5NzA4OH0.JXpvI0rWbs5uT_r-qOInfdysP5Xpp1A9XnAwCbSa5r0
-                refresh_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozMDIsImV4cCI6MTc3NDgwMDk4OH0.Mcr_9A3A6WKTttrEPIXzXGLeybTsH2N3Ive-X-JSS5w
+                access_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNDksImV4cCI6MTc3NDIxMDM3N30.PSgVGDhmTwRqXut8NDYoJo4i0KASejQMq__4t0vZiKc
+                refresh_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNDksImV4cCI6MTc3NDgxNDI3N30.Y6n1CIhfgjrMSx44T4fzHNhknidTYrKV8IL6B2TPMSU
                 user:
-                  id: 302
+                  id: 149
                   email: user6@example.com
                   role: user
         '401':
@@ -592,24 +594,24 @@ paths:
                 - error
               example:
                 error: Account is inactive
-      security:
-      - ApiKeyAuth: []
   "/api/v1/auth/logout":
     delete:
       summary: Log out by invalidating the current access token
       tags:
       - Auth
-      responses:
-        '204':
-          description: returns 204
       security:
       - BearerAuth: []
       - ApiKeyAuth: []
+      responses:
+        '204':
+          description: returns 204
   "/api/v1/auth/refresh":
     post:
       summary: Refresh JWT access token using a valid refresh token
       tags:
       - Auth
+      security:
+      - ApiKeyAuth: []
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -630,7 +632,7 @@ paths:
                 required:
                 - access_token
               example:
-                access_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozMDUsImV4cCI6MTc3NDE5NzA4OH0.kqpUkgrXOxRUaI_Ock_hA3TvOz4N_fViGJfynGdHV7s
+                access_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNTIsImV4cCI6MTc3NDIxMDM3N30.ZBAwEaAh4TkmohR6MPOcUAHUBA6mdWy_xm4E1PZ95s4
         '401':
           description: returns 401
           content:
@@ -644,13 +646,13 @@ paths:
                 - error
               example:
                 error: Invalid refresh token
-      security:
-      - ApiKeyAuth: []
   "/api/v1/health":
     get:
       summary: Check API health and database status
       tags:
       - Health
+      security:
+      - ApiKeyAuth: []
       responses:
         '200':
           description: returns connected database status
@@ -679,7 +681,7 @@ paths:
                 status: ok
                 version: 1.0.0
                 environment: test
-                timestamp: '2026-03-22T16:16:28Z'
+                timestamp: '2026-03-22T19:57:57Z'
                 database: connected
         '401':
           description: returns 401 unauthorized
@@ -698,8 +700,6 @@ paths:
               example:
                 error: Unauthorized
                 message: Invalid or missing API key
-      security:
-      - ApiKeyAuth: []
 components:
   securitySchemes:
     BearerAuth:
