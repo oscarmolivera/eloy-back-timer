@@ -1,28 +1,35 @@
+[
+  {
+    credential_path: %i[super_admin one],
+    first_name: "Alberto",
+    last_name: "Sibajoz"
+  },
+  {
+    credential_path: %i[super_admin two],
+    first_name: "Cristian",
+    last_name: "Astorga"
+  },
+  {
+    credential_path: %i[super_admin tre],
+    first_name: "Oscar",
+    last_name: "Olivera"
+  }
+].each do |admin|
+  email = Rails.application.credentials.dig(*admin[:credential_path], :email)
+  password = Rails.application.credentials.dig(*admin[:credential_path], :password)
+  user = User.find_or_initialize_by(email: email)
 
-User.create!(
-  email: "#{Rails.application.credentials.dig(:super_admin, :one, :email)}",
-  password: "#{Rails.application.credentials.dig(:super_admin, :one, :password)}",
-  first_name: "Name One",
-  last_name: "Super Admin One",
-  active: true,
-  role: :super_admin
-)
-
-
-User.create!(
-  email: "#{Rails.application.credentials.dig(:super_admin, :two, :email)}",
-  password: "#{Rails.application.credentials.dig(:super_admin, :two, :password)}",
-  first_name: "Name Two",
-  last_name: "Super Admin Two",
-  active: true,
-  role: :super_admin
-)
-
-User.create!(
-  email: "#{Rails.application.credentials.dig(:super_admin, :tre, :email)}",
-  password: "#{Rails.application.credentials.dig(:super_admin, :tre, :password)}",
-  first_name: "Name Three",
-  last_name: "Super Admin Three",
-  active: true,
-  role: :super_admin
-)
+  if user.new_record?
+    user.assign_attributes(
+      password: password,
+      first_name: admin[:first_name],
+      last_name: admin[:last_name],
+      active: true,
+      role: :super_admin
+    )
+    user.save!
+    puts "  ✅ Created superadmin: #{email}"
+  else
+    puts "  ⏭️  Skipping — already exists: #{email}"
+  end
+end
