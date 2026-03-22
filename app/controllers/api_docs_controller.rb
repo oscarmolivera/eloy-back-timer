@@ -8,8 +8,8 @@ class ApiDocsController < ApplicationController
   def spec
     spec_path = Rails.root.join("doc", "openapi.yaml")
     send_file spec_path,
-              type: 'application/yaml',
-              disposition: 'inline'
+              type: "application/yaml",
+              disposition: "inline"
   end
 
   private

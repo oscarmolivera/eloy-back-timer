@@ -43,7 +43,7 @@ if ENV['OPENAPI'].present?
   # (We default to BearerAuth because that's what your real API endpoints use)
   # ──────────────────────────────────────────────────────────────
   RSpec::OpenAPI.post_process_hook = lambda do |_path, _records, spec|
-    spec[:security] = [{ 'BearerAuth' => [] }]
+    spec[:security] = [ { 'BearerAuth' => [] } ]
     spec
   end
 
