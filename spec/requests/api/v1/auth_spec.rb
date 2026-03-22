@@ -5,7 +5,7 @@ RSpec.describe "API::V1::Auth", type: :request do
   let(:user)     { create(:user, password: password) }
   let(:api_key)  { Rails.application.credentials.dig(:api, :secret_key) }
 
-  describe "POST /api/v1/auth/login" do
+  describe "POST /api/v1/auth/login", openapi: OPENAPI_METADATA[:auth_login] do
     context "with valid credentials" do
       it "returns 200 and tokens" do
         post "/api/v1/auth/login",
@@ -50,7 +50,7 @@ RSpec.describe "API::V1::Auth", type: :request do
     end
   end
 
-  describe "POST /api/v1/auth/refresh" do
+  describe "POST /api/v1/auth/refresh", openapi: OPENAPI_METADATA[:auth_refresh] do
     let(:refresh_token) { JwtService.encode({ user_id: user.id }, 7.days.from_now) }
 
     context "with valid token" do
@@ -81,7 +81,7 @@ RSpec.describe "API::V1::Auth", type: :request do
     end
   end
 
-  describe "DELETE /api/v1/auth/logout" do
+  describe "DELETE /api/v1/auth/logout", openapi: OPENAPI_METADATA[:auth_logout] do
     let(:access_token) { JwtService.encode({ user_id: user.id }, 1.hour.from_now) }
 
     it "returns 204" do

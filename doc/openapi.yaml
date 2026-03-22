@@ -1,0 +1,716 @@
+---
+openapi: 3.0.3
+info:
+  title: EloyTimer API
+  version: 1.0.0
+  description: Employee shift management for the Spanish hospitality industry
+servers:
+- url: https://eloy-back-timer-api-server.onrender.com
+  description: Production
+- url: http://localhost:3000
+  description: Development
+paths:
+  "/api/v1/admin/companies":
+    get:
+      summary: List all companies
+      tags:
+      - Admin::Companies
+      responses:
+        '200':
+          description: returns a list of all companies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    active:
+                      type: boolean
+                    business_name:
+                      nullable: true
+                    ccc:
+                      nullable: true
+                    cif:
+                      nullable: true
+                    city:
+                      nullable: true
+                    contact_email:
+                      nullable: true
+                    contact_phone_main:
+                      nullable: true
+                    contact_phone_secondary:
+                      nullable: true
+                    created_at:
+                      type: string
+                    door:
+                      nullable: true
+                    floor:
+                      nullable: true
+                    logo_url:
+                      nullable: true
+                    name:
+                      type: string
+                    number:
+                      nullable: true
+                    postal_code:
+                      nullable: true
+                    province:
+                      nullable: true
+                    slug:
+                      type: string
+                    street:
+                      nullable: true
+                    updated_at:
+                      type: string
+                  required:
+                  - id
+                  - active
+                  - business_name
+                  - ccc
+                  - cif
+                  - city
+                  - contact_email
+                  - contact_phone_main
+                  - contact_phone_secondary
+                  - created_at
+                  - door
+                  - floor
+                  - logo_url
+                  - name
+                  - number
+                  - postal_code
+                  - province
+                  - slug
+                  - street
+                  - updated_at
+              example:
+              - id: 368
+                active: true
+                business_name:
+                ccc:
+                cif:
+                city:
+                contact_email:
+                contact_phone_main:
+                contact_phone_secondary:
+                created_at: '2026-03-22T16:16:28.431Z'
+                door:
+                floor:
+                logo_url:
+                name: Acme Corporation 1
+                number:
+                postal_code:
+                province:
+                slug: acme-corporation-1
+                street:
+                updated_at: '2026-03-22T16:16:28.431Z'
+              - id: 369
+                active: true
+                business_name:
+                ccc:
+                cif:
+                city:
+                contact_email:
+                contact_phone_main:
+                contact_phone_secondary:
+                created_at: '2026-03-22T16:16:28.434Z'
+                door:
+                floor:
+                logo_url:
+                name: Acme Corporation 2
+                number:
+                postal_code:
+                province:
+                slug: acme-corporation-2
+                street:
+                updated_at: '2026-03-22T16:16:28.434Z'
+              - id: 370
+                active: true
+                business_name:
+                ccc:
+                cif:
+                city:
+                contact_email:
+                contact_phone_main:
+                contact_phone_secondary:
+                created_at: '2026-03-22T16:16:28.435Z'
+                door:
+                floor:
+                logo_url:
+                name: Acme Corporation 3
+                number:
+                postal_code:
+                province:
+                slug: acme-corporation-3
+                street:
+                updated_at: '2026-03-22T16:16:28.435Z'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+    post:
+      summary: Create a new company
+      tags:
+      - Admin::Companies
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                  required:
+                  - name
+              required:
+              - company
+            example:
+              company:
+                name: New Test Company
+      responses:
+        '201':
+          description: creates a new company
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  active:
+                    type: boolean
+                  business_name:
+                    nullable: true
+                  ccc:
+                    nullable: true
+                  cif:
+                    nullable: true
+                  city:
+                    nullable: true
+                  contact_email:
+                    nullable: true
+                  contact_phone_main:
+                    nullable: true
+                  contact_phone_secondary:
+                    nullable: true
+                  created_at:
+                    type: string
+                  door:
+                    nullable: true
+                  floor:
+                    nullable: true
+                  logo_url:
+                    nullable: true
+                  name:
+                    type: string
+                  number:
+                    nullable: true
+                  postal_code:
+                    nullable: true
+                  province:
+                    nullable: true
+                  slug:
+                    type: string
+                  street:
+                    nullable: true
+                  updated_at:
+                    type: string
+                required:
+                - id
+                - active
+                - business_name
+                - ccc
+                - cif
+                - city
+                - contact_email
+                - contact_phone_main
+                - contact_phone_secondary
+                - created_at
+                - door
+                - floor
+                - logo_url
+                - name
+                - number
+                - postal_code
+                - province
+                - slug
+                - street
+                - updated_at
+              example:
+                id: 371
+                active: true
+                business_name:
+                ccc:
+                cif:
+                city:
+                contact_email:
+                contact_phone_main:
+                contact_phone_secondary:
+                created_at: '2026-03-22T16:16:28.477Z'
+                door:
+                floor:
+                logo_url:
+                name: New Test Company
+                number:
+                postal_code:
+                province:
+                slug: new-test-company
+                street:
+                updated_at: '2026-03-22T16:16:28.477Z'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+  "/api/v1/admin/companies/{id}":
+    delete:
+      summary: Delete (deactivate) a company by ID
+      tags:
+      - Admin::Companies
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 374
+      responses:
+        '204':
+          description: deletes a company
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+    get:
+      summary: Get a single company by ID
+      tags:
+      - Admin::Companies
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 372
+      responses:
+        '200':
+          description: returns a single company
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  active:
+                    type: boolean
+                  business_name:
+                    nullable: true
+                  ccc:
+                    nullable: true
+                  cif:
+                    nullable: true
+                  city:
+                    nullable: true
+                  contact_email:
+                    nullable: true
+                  contact_phone_main:
+                    nullable: true
+                  contact_phone_secondary:
+                    nullable: true
+                  created_at:
+                    type: string
+                  door:
+                    nullable: true
+                  floor:
+                    nullable: true
+                  logo_url:
+                    nullable: true
+                  name:
+                    type: string
+                  number:
+                    nullable: true
+                  postal_code:
+                    nullable: true
+                  province:
+                    nullable: true
+                  slug:
+                    type: string
+                  street:
+                    nullable: true
+                  updated_at:
+                    type: string
+                required:
+                - id
+                - active
+                - business_name
+                - ccc
+                - cif
+                - city
+                - contact_email
+                - contact_phone_main
+                - contact_phone_secondary
+                - created_at
+                - door
+                - floor
+                - logo_url
+                - name
+                - number
+                - postal_code
+                - province
+                - slug
+                - street
+                - updated_at
+              example:
+                id: 372
+                active: true
+                business_name:
+                ccc:
+                cif:
+                city:
+                contact_email:
+                contact_phone_main:
+                contact_phone_secondary:
+                created_at: '2026-03-22T16:16:28.485Z'
+                door:
+                floor:
+                logo_url:
+                name: Acme Corporation 4
+                number:
+                postal_code:
+                province:
+                slug: acme-corporation-4
+                street:
+                updated_at: '2026-03-22T16:16:28.485Z'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+    put:
+      summary: Update a company by ID
+      tags:
+      - Admin::Companies
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: 373
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                  required:
+                  - name
+              required:
+              - company
+            example:
+              company:
+                name: Updated Company Name
+      responses:
+        '200':
+          description: updates a company
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  slug:
+                    type: string
+                  id:
+                    type: integer
+                  active:
+                    type: boolean
+                  business_name:
+                    nullable: true
+                  ccc:
+                    nullable: true
+                  cif:
+                    nullable: true
+                  city:
+                    nullable: true
+                  contact_email:
+                    nullable: true
+                  contact_phone_main:
+                    nullable: true
+                  contact_phone_secondary:
+                    nullable: true
+                  created_at:
+                    type: string
+                  door:
+                    nullable: true
+                  floor:
+                    nullable: true
+                  logo_url:
+                    nullable: true
+                  number:
+                    nullable: true
+                  postal_code:
+                    nullable: true
+                  province:
+                    nullable: true
+                  street:
+                    nullable: true
+                  updated_at:
+                    type: string
+                required:
+                - name
+                - slug
+                - id
+                - active
+                - business_name
+                - ccc
+                - cif
+                - city
+                - contact_email
+                - contact_phone_main
+                - contact_phone_secondary
+                - created_at
+                - door
+                - floor
+                - logo_url
+                - number
+                - postal_code
+                - province
+                - street
+                - updated_at
+              example:
+                name: Updated Company Name
+                slug: acme-corporation-5
+                id: 373
+                active: true
+                business_name:
+                ccc:
+                cif:
+                city:
+                contact_email:
+                contact_phone_main:
+                contact_phone_secondary:
+                created_at: '2026-03-22T16:16:28.494Z'
+                door:
+                floor:
+                logo_url:
+                number:
+                postal_code:
+                province:
+                street:
+                updated_at: '2026-03-22T16:16:28.507Z'
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+  "/api/v1/auth/login":
+    post:
+      summary: Log in and obtain JWT access and refresh tokens
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - email
+              - password
+            example:
+              email: user6@example.com
+              password: password123
+      responses:
+        '200':
+          description: returns 200 and tokens
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  refresh_token:
+                    type: string
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      email:
+                        type: string
+                      role:
+                        type: string
+                    required:
+                    - id
+                    - email
+                    - role
+                required:
+                - access_token
+                - refresh_token
+                - user
+              example:
+                access_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozMDIsImV4cCI6MTc3NDE5NzA4OH0.JXpvI0rWbs5uT_r-qOInfdysP5Xpp1A9XnAwCbSa5r0
+                refresh_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozMDIsImV4cCI6MTc3NDgwMDk4OH0.Mcr_9A3A6WKTttrEPIXzXGLeybTsH2N3Ive-X-JSS5w
+                user:
+                  id: 302
+                  email: user6@example.com
+                  role: user
+        '401':
+          description: returns 401
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                - error
+              example:
+                error: Invalid email or password
+        '403':
+          description: returns 403
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                - error
+              example:
+                error: Account is inactive
+      security:
+      - ApiKeyAuth: []
+  "/api/v1/auth/logout":
+    delete:
+      summary: Log out by invalidating the current access token
+      tags:
+      - Auth
+      responses:
+        '204':
+          description: returns 204
+      security:
+      - BearerAuth: []
+      - ApiKeyAuth: []
+  "/api/v1/auth/refresh":
+    post:
+      summary: Refresh JWT access token using a valid refresh token
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties: {}
+            example: {}
+      responses:
+        '200':
+          description: returns 200 and new access token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                required:
+                - access_token
+              example:
+                access_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozMDUsImV4cCI6MTc3NDE5NzA4OH0.kqpUkgrXOxRUaI_Ock_hA3TvOz4N_fViGJfynGdHV7s
+        '401':
+          description: returns 401
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                - error
+              example:
+                error: Invalid refresh token
+      security:
+      - ApiKeyAuth: []
+  "/api/v1/health":
+    get:
+      summary: Check API health and database status
+      tags:
+      - Health
+      responses:
+        '200':
+          description: returns connected database status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  version:
+                    type: string
+                  environment:
+                    type: string
+                  timestamp:
+                    type: string
+                  database:
+                    type: string
+                required:
+                - status
+                - version
+                - environment
+                - timestamp
+                - database
+              example:
+                status: ok
+                version: 1.0.0
+                environment: test
+                timestamp: '2026-03-22T16:16:28Z'
+                database: connected
+        '401':
+          description: returns 401 unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+                required:
+                - error
+                - message
+              example:
+                error: Unauthorized
+                message: Invalid or missing API key
+      security:
+      - ApiKeyAuth: []
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token obtained after successful login
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Secret API key (used for health check and documentation)
+security:
+- BearerAuth: []

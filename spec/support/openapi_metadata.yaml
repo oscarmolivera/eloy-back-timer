@@ -1,0 +1,36 @@
+health:
+  summary: 'Check API health and database status'
+  tags: ['Health']
+  security: [{ 'ApiKeyAuth': [] }]
+auth_login:
+  summary: 'Log in and obtain JWT access and refresh tokens'
+  tags: ['Auth']
+  security: [{ 'ApiKeyAuth': [] }]
+auth_refresh:
+  summary: 'Refresh JWT access token using a valid refresh token'
+  tags: ['Auth']
+  security: [{ 'ApiKeyAuth': [] }]
+auth_logout:
+  summary: 'Log out by invalidating the current access token'
+  tags: ['Auth']
+  security: [{ 'BearerAuth': [] }, { 'ApiKeyAuth': [] }]
+admin_companies_index:
+  summary: 'List all companies'
+  tags: ['Admin::Companies']
+  security: [{ 'BearerAuth': [] }, { 'ApiKeyAuth': [] }]
+admin_companies_create:
+  summary: 'Create a new company'
+  tags: ['Admin::Companies']
+  security: [{ 'BearerAuth': [] }, { 'ApiKeyAuth': [] }]
+admin_companies_show:
+  summary: 'Get a single company by ID'
+  tags: ['Admin::Companies']
+  security: [{ 'BearerAuth': [] }, { 'ApiKeyAuth': [] }]
+admin_companies_update:
+  summary: 'Update a company by ID'
+  tags: ['Admin::Companies']
+  security: [{ 'BearerAuth': [] }, { 'ApiKeyAuth': [] }]
+admin_companies_destroy:
+  summary: 'Delete (deactivate) a company by ID'
+  tags: ['Admin::Companies']
+  security: [{ 'BearerAuth': [] }, { 'ApiKeyAuth': [] }]

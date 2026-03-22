@@ -12,7 +12,7 @@ RSpec.describe "API::V1::Admin::Companies", type: :request do
     }
   end
 
-  describe "GET /api/v1/admin/companies" do
+  describe "GET /api/v1/admin/companies", openapi: OPENAPI_METADATA[:admin_companies_index] do
     it "returns a list of all companies" do
       create_list(:company, 3)
 
@@ -24,7 +24,7 @@ RSpec.describe "API::V1::Admin::Companies", type: :request do
     end
   end
 
-  describe "POST /api/v1/admin/companies" do
+  describe "POST /api/v1/admin/companies", openapi: OPENAPI_METADATA[:admin_companies_create] do
     it "creates a new company" do
       expect do
         post "/api/v1/admin/companies",
@@ -38,7 +38,7 @@ RSpec.describe "API::V1::Admin::Companies", type: :request do
     end
   end
 
-  describe "GET /api/v1/admin/companies/:id" do
+  describe "GET /api/v1/admin/companies/:id", openapi: OPENAPI_METADATA[:admin_companies_show] do
     let(:company) { create(:company) }
 
     it "returns a single company" do
@@ -49,7 +49,7 @@ RSpec.describe "API::V1::Admin::Companies", type: :request do
     end
   end
 
-  describe "PUT /api/v1/admin/companies/:id" do
+  describe "PUT /api/v1/admin/companies/:id", openapi: OPENAPI_METADATA[:admin_companies_update] do
     let(:company) { create(:company) }
 
     it "updates a company" do
@@ -62,7 +62,7 @@ RSpec.describe "API::V1::Admin::Companies", type: :request do
     end
   end
 
-  describe "DELETE /api/v1/admin/companies/:id" do
+  describe "DELETE /api/v1/admin/companies/:id", openapi: OPENAPI_METADATA[:admin_companies_destroy] do
     let(:company) { create(:company) }
 
     it "deletes a company" do
