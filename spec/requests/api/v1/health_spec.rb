@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Api::V1::Health", type: :request do
-  describe "GET /api/v1/health" do
+  describe "GET /api/v1/health", openapi: OPENAPI_METADATA[:health] do
     context "with no API key" do
       it "returns 401 unauthorized" do
         get "/api/v1/health"
