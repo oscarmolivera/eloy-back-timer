@@ -1,4 +1,7 @@
 module Authenticatable
+  class AuthenticationError < StandardError; end
+  class AuthorizationError < StandardError; end
+
   def authenticate_user!
     token = request.headers["Authorization"]&.split(" ")&.last
     payload = JwtService.decode(token)
