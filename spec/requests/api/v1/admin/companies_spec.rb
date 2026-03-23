@@ -73,4 +73,30 @@ RSpec.describe "API::V1::Admin::Companies", type: :request do
       expect(company.reload.active).to be_falsey
     end
   end
+
+  describe "authorization", openapi: OPENAPI_METADATA[:admin_companies_authorization] do
+    let(:api_key)     { Rails.application.credentials.dig(:api, :secret_key) }
+    context "with no API key" do
+      it "returns 401 on any companies endpoint" do
+        get "/api/v1/admin/companies"
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context "with valid API key but no JWT token" do
+      it "returns 401" do
+        get "/api/v1/admin/companies", headers: { "X-API-Key" => api_key }
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context "with valid API key and JWT but user is not super_admin" do
+      let(:regular_user) { create(:user, :user) }
+
+      it "returns 403" do
+        get "/api/v1/admin/companies", headers: auth_headers(regular_user)
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+  end
 end

@@ -12,7 +12,7 @@ servers:
 paths:
   "/api/v1/admin/companies":
     get:
-      summary: List all companies
+      summary: Check if the current user is authorized to manage companies
       tags:
       - Admin - Companies
       security:
@@ -70,86 +70,120 @@ paths:
                       type: string
                   required:
                   - id
-                  - active
+                  - name
                   - business_name
-                  - ccc
+                  - slug
                   - cif
+                  - ccc
+                  - logo_url
                   - city
+                  - province
+                  - postal_code
+                  - street
+                  - number
+                  - floor
+                  - door
                   - contact_email
                   - contact_phone_main
                   - contact_phone_secondary
-                  - created_at
-                  - door
-                  - floor
-                  - logo_url
-                  - name
-                  - number
-                  - postal_code
-                  - province
-                  - slug
-                  - street
-                  - updated_at
+                  - active
               example:
-              - id: 224
-                active: true
-                business_name:
-                ccc:
-                cif:
-                city:
-                contact_email:
-                contact_phone_main:
-                contact_phone_secondary:
-                created_at: '2026-03-22T20:23:44.946Z'
-                door:
-                floor:
-                logo_url:
+              - id: 492
                 name: Acme Corporation 18
-                number:
-                postal_code:
-                province:
+                business_name:
                 slug: acme-corporation-18
-                street:
-                updated_at: '2026-03-22T20:23:44.946Z'
-              - id: 225
-                active: true
-                business_name:
-                ccc:
                 cif:
+                ccc:
+                logo_url:
                 city:
+                province:
+                postal_code:
+                street:
+                number:
+                floor:
+                door:
                 contact_email:
                 contact_phone_main:
                 contact_phone_secondary:
-                created_at: '2026-03-22T20:23:44.948Z'
-                door:
-                floor:
-                logo_url:
+                active: true
+              - id: 493
                 name: Acme Corporation 19
-                number:
-                postal_code:
-                province:
-                slug: acme-corporation-19
-                street:
-                updated_at: '2026-03-22T20:23:44.948Z'
-              - id: 226
-                active: true
                 business_name:
-                ccc:
+                slug: acme-corporation-19
                 cif:
+                ccc:
+                logo_url:
                 city:
+                province:
+                postal_code:
+                street:
+                number:
+                floor:
+                door:
                 contact_email:
                 contact_phone_main:
                 contact_phone_secondary:
-                created_at: '2026-03-22T20:23:44.949Z'
-                door:
-                floor:
-                logo_url:
+                active: true
+              - id: 494
                 name: Acme Corporation 20
-                number:
-                postal_code:
-                province:
+                business_name:
                 slug: acme-corporation-20
+                cif:
+                ccc:
+                logo_url:
+                city:
+                province:
+                postal_code:
                 street:
-                updated_at: '2026-03-22T20:23:44.949Z'
+                number:
+                floor:
+                door:
+                contact_email:
+                contact_phone_main:
+                contact_phone_secondary:
+                active: true
+        '401':
+          description: returns 401
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+                  status:
+                    type: integer
+                required:
+                - error
+                - message
+                - status
+              example:
+                error: Unauthorized
+                message: Invalid token
+                status: 401
+        '403':
+          description: returns 403
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+                  status:
+                    type: integer
+                required:
+                - error
+                - message
+                - status
+              example:
+                error: Forbidden
+                message: Access denied
+                status: 403
     post:
       summary: Create a new company
       tags:
@@ -225,27 +259,27 @@ paths:
                     type: string
                 required:
                 - id
-                - active
+                - name
                 - business_name
-                - ccc
+                - slug
                 - cif
+                - ccc
+                - logo_url
                 - city
+                - province
+                - postal_code
+                - street
+                - number
+                - floor
+                - door
                 - contact_email
                 - contact_phone_main
                 - contact_phone_secondary
+                - active
                 - created_at
-                - door
-                - floor
-                - logo_url
-                - name
-                - number
-                - postal_code
-                - province
-                - slug
-                - street
                 - updated_at
               example:
-                id: 227
+                id: 495
                 active: true
                 business_name:
                 ccc:
@@ -254,7 +288,7 @@ paths:
                 contact_email:
                 contact_phone_main:
                 contact_phone_secondary:
-                created_at: '2026-03-22T20:23:44.981Z'
+                created_at: '2026-03-23T11:48:27Z'
                 door:
                 floor:
                 logo_url:
@@ -264,7 +298,7 @@ paths:
                 province:
                 slug: new-test-company
                 street:
-                updated_at: '2026-03-22T20:23:44.981Z'
+                updated_at: '2026-03-23T11:48:27Z'
   "/api/v1/admin/companies/{id}":
     delete:
       summary: Delete (deactivate) a company by ID
@@ -279,7 +313,7 @@ paths:
         required: true
         schema:
           type: integer
-        example: 230
+        example: 498
       responses:
         '204':
           description: deletes a company
@@ -296,7 +330,7 @@ paths:
         required: true
         schema:
           type: integer
-        example: 228
+        example: 496
       responses:
         '200':
           description: returns a single company
@@ -347,27 +381,27 @@ paths:
                     type: string
                 required:
                 - id
-                - active
+                - name
                 - business_name
-                - ccc
+                - slug
                 - cif
+                - ccc
+                - logo_url
                 - city
+                - province
+                - postal_code
+                - street
+                - number
+                - floor
+                - door
                 - contact_email
                 - contact_phone_main
                 - contact_phone_secondary
+                - active
                 - created_at
-                - door
-                - floor
-                - logo_url
-                - name
-                - number
-                - postal_code
-                - province
-                - slug
-                - street
                 - updated_at
               example:
-                id: 228
+                id: 496
                 active: true
                 business_name:
                 ccc:
@@ -376,7 +410,7 @@ paths:
                 contact_email:
                 contact_phone_main:
                 contact_phone_secondary:
-                created_at: '2026-03-22T20:23:44.986Z'
+                created_at: '2026-03-23T11:48:27Z'
                 door:
                 floor:
                 logo_url:
@@ -386,7 +420,7 @@ paths:
                 province:
                 slug: acme-corporation-21
                 street:
-                updated_at: '2026-03-22T20:23:44.986Z'
+                updated_at: '2026-03-23T11:48:27Z'
     put:
       summary: Update a company by ID
       tags:
@@ -400,7 +434,7 @@ paths:
         required: true
         schema:
           type: integer
-        example: 229
+        example: 497
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -468,30 +502,30 @@ paths:
                   updated_at:
                     type: string
                 required:
-                - name
-                - slug
                 - id
-                - active
+                - name
                 - business_name
-                - ccc
+                - slug
                 - cif
+                - ccc
+                - logo_url
                 - city
+                - province
+                - postal_code
+                - street
+                - number
+                - floor
+                - door
                 - contact_email
                 - contact_phone_main
                 - contact_phone_secondary
+                - active
                 - created_at
-                - door
-                - floor
-                - logo_url
-                - number
-                - postal_code
-                - province
-                - street
                 - updated_at
               example:
                 name: Updated Company Name
                 slug: acme-corporation-22
-                id: 229
+                id: 497
                 active: true
                 business_name:
                 ccc:
@@ -500,7 +534,7 @@ paths:
                 contact_email:
                 contact_phone_main:
                 contact_phone_secondary:
-                created_at: '2026-03-22T20:23:44.997Z'
+                created_at: '2026-03-23T11:48:27Z'
                 door:
                 floor:
                 logo_url:
@@ -508,7 +542,7 @@ paths:
                 postal_code:
                 province:
                 street:
-                updated_at: '2026-03-22T20:23:45.018Z'
+                updated_at: '2026-03-23T11:48:27Z'
   "/api/v1/auth/login":
     post:
       summary: Log in and obtain JWT access and refresh tokens
@@ -530,7 +564,7 @@ paths:
               - email
               - password
             example:
-              email: user14@example.com
+              email: user15@example.com
               password: password123
       responses:
         '200':
@@ -553,6 +587,18 @@ paths:
                         type: string
                       role:
                         type: string
+                      first_name:
+                        nullable: true
+                      last_name:
+                        nullable: true
+                      full_name:
+                        nullable: true
+                      active:
+                        type: boolean
+                      last_sign_in_at:
+                        nullable: true
+                      company_id:
+                        type: integer
                     required:
                     - id
                     - email
@@ -562,12 +608,18 @@ paths:
                 - refresh_token
                 - user
               example:
-                access_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxOTcsImV4cCI6MTc3NDIxMTkyNX0.8m4l_UkrZ-KZQPYJ7BrZAQpSX9CZpYFgDV6y6g-Kvs8
-                refresh_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxOTcsImV4cCI6MTc3NDgxNTgyNX0.krgr8R-fcggSeDSQIc2pV6wddlTuNRKty0N9bvrPmzQ
+                access_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0MTEsImV4cCI6MTc3NDI2NzQwN30.Zs58rZL2nfKMHnl6CDq6Hha-Ilm2hzAN6mH8vqR7Sh4
+                refresh_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0MTEsImV4cCI6MTc3NDg3MTMwN30.AhxtvZuM6UTvN9gpLPJtUemgFbyCGuoLG5J_Y5JCrFM
                 user:
-                  id: 197
-                  email: user14@example.com
+                  id: 411
+                  email: user15@example.com
                   role: user
+                  first_name:
+                  last_name:
+                  full_name:
+                  active: true
+                  last_sign_in_at:
+                  company_id: 500
         '401':
           description: returns 401
           content:
@@ -577,10 +629,16 @@ paths:
                 properties:
                   error:
                     type: string
+                  message:
+                    type: string
+                  status:
+                    type: integer
                 required:
                 - error
               example:
-                error: Invalid email or password
+                error: Unauthorized
+                message: Invalid email or password
+                status: 401
         '403':
           description: returns 403
           content:
@@ -590,10 +648,16 @@ paths:
                 properties:
                   error:
                     type: string
+                  message:
+                    type: string
+                  status:
+                    type: integer
                 required:
                 - error
               example:
-                error: Account is inactive
+                error: Forbidden
+                message: Account is inactive
+                status: 403
   "/api/v1/auth/logout":
     delete:
       summary: Log out by invalidating the current access token
@@ -632,7 +696,7 @@ paths:
                 required:
                 - access_token
               example:
-                access_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDAsImV4cCI6MTc3NDIxMTkyNX0.EXNfIfjBnZhisx7nUNrW891mrt8Ofiw1UcWhIyYblsg
+                access_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0MTQsImV4cCI6MTc3NDI2NzQwN30.3ZiGnk3a5-TzdJfnwzFAYonHAZo84uWE9uKhxNPT1_A
         '401':
           description: returns 401
           content:
@@ -642,10 +706,16 @@ paths:
                 properties:
                   error:
                     type: string
+                  message:
+                    type: string
+                  status:
+                    type: integer
                 required:
                 - error
               example:
-                error: Invalid refresh token
+                error: Unauthorized
+                message: Invalid refresh token
+                status: 401
   "/api/v1/health":
     get:
       summary: Check API health and database status
@@ -681,7 +751,7 @@ paths:
                 status: ok
                 version: 1.0.0
                 environment: test
-                timestamp: '2026-03-22T20:23:45Z'
+                timestamp: '2026-03-23T11:48:27Z'
                 database: connected
         '401':
           description: returns 401 unauthorized
@@ -694,12 +764,15 @@ paths:
                     type: string
                   message:
                     type: string
+                  status:
+                    type: integer
                 required:
                 - error
                 - message
               example:
                 error: Unauthorized
                 message: Invalid or missing API key
+                status: 401
 components:
   securitySchemes:
     BearerAuth:
