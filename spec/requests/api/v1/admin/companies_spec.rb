@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "API::V1::Admin::Companies", type: :request do
-  let(:api_key) { Rails.application.credentials.dig(:api, :secret_key) }
   let(:super_admin)   { create(:user, :super_admin) }
   let(:token)   { JwtService.encode({ user_id: super_admin.id }, 1.hour.from_now) }
 
@@ -11,6 +10,8 @@ RSpec.describe "API::V1::Admin::Companies", type: :request do
       "Authorization" => "Bearer #{token}"
     }
   end
+
+  let(:headers) { auth_headers(super_admin) }
 
   describe "GET /api/v1/admin/companies", openapi: OPENAPI_METADATA[:admin_companies_index] do
     it "returns a list of all companies" do
