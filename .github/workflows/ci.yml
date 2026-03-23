@@ -9,6 +9,10 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:                                      # ← all env vars in one place
+      RAILS_ENV: test
+      DATABASE_URL: postgresql://postgres:postgres@localhost/eloy_back_timer_test
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
 
     services:
       postgres:
@@ -35,41 +39,13 @@ jobs:
           bundler-cache: true
 
       - name: Set up database
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgresql://postgres:postgres@localhost/eloy_back_timer_test
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-        run: |
-          bundle exec rails db:create db:migrate
-
-      - name: Debug credentials (important!)
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgresql://postgres:postgres@localhost/eloy_back_timer_test
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-        run: |
-          echo "=== RAILS_MASTER_KEY in env ==="
-          echo "Length: ${#RAILS_MASTER_KEY} characters"
-          echo "Present: $([ -n "$RAILS_MASTER_KEY" ] && echo "YES" || echo "NO")"
-          echo "=== Rails credentials check ==="
-          bundle exec rails runner '
-            key = Rails.application.credentials.dig(:api, :secret_key)
-            puts "API key present in credentials? #{key.present? ? "✅ YES (length: #{key.length})" : "❌ NO"}"
-            puts "Full api section: #{Rails.application.credentials.dig(:api).inspect}"'
+        run: bundle exec rails db:create db:migrate
 
       - name: Run specs
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgresql://postgres:postgres@localhost/eloy_back_timer_test
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-        run: |
-          bundle exec rspec --format documentation
+        run: bundle exec rspec --format documentation
 
       - name: Verify OpenAPI spec is up to date
         env:
-          RAILS_ENV: test
-          DATABASE_URL: postgresql://postgres:postgres@localhost/eloy_back_timer_test
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           OPENAPI: "1"
         run: |
           bundle exec rspec
