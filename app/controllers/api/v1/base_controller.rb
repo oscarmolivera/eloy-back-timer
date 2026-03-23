@@ -20,24 +20,24 @@ module Api
           expected_key.to_s
         )
 
-        render json: {
-          error: "Unauthorized",
-          message: "Invalid or missing API key"
-        }, status: :unauthorized
+        render json: ErrorSerializer.new(
+          message: "Invalid or missing API key",
+          status:  401
+        ).as_json, status: :unauthorized
       end
 
       def render_unauthorized(exception)
-        render json: {
-          error: "Unauthorized",
-          message: exception.message
-        }, status: :unauthorized
+        render json: ErrorSerializer.new(
+          message: exception.message,
+          status:  401
+        ).as_json, status: :unauthorized
       end
 
       def render_forbidden(exception)
-        render json: {
-          error: "Forbidden",
-          message: exception.message
-        }, status: :forbidden
+        render json: ErrorSerializer.new(
+          message: exception.message,
+          status:  403
+        ).as_json, status: :forbidden
       end
     end
   end

@@ -4,45 +4,56 @@ module Api
       class CompaniesController < Api::V1::BaseController
         before_action :authenticate_user!
         before_action :require_superadmin!
+        before_action :set_company, only: %i[show update destroy]
 
         def index
-          @companies = Company.order(:created_at)
-          render json: @companies
+          companies = Company.order(:created_at)
+          render json: CompanySerializer.collection(companies)
         end
 
         def show
-          @company = Company.find(params[:id])
-          render json: @company
+          render json: CompanyDetailSerializer.new(@company).as_json
         end
 
         def create
-          @company = Company.new(company_params)
-          if @company.save
-            render json: @company, status: :created
+          company = Company.new(company_params)
+          if company.save
+            render json: CompanyDetailSerializer.new(company).as_json,
+                   status: :created
           else
-            render json: { errors: @company.errors.full_messages }, status: :unprocessable_entity
+            render json: ErrorSerializer.validation(company.errors),
+                   status: :unprocessable_entity
           end
         end
 
         def update
-          @company = Company.find(params[:id])
           if @company.update(company_params)
-            render json: @company
+            render json: CompanyDetailSerializer.new(@company).as_json
           else
-            render json: { errors: @company.errors.full_messages }, status: :unprocessable_entity
+            render json: ErrorSerializer.validation(@company.errors),
+                   status: :unprocessable_entity
           end
         end
 
         def destroy
-          @company = Company.find(params[:id])
           if @company.update(active: false)
             head :no_content
           else
-            render json: { errors: @company.errors.full_messages }, status: :unprocessable_entity
+            render json: ErrorSerializer.validation(@company.errors),
+                   status: :unprocessable_entity
           end
         end
 
         private
+
+        def set_company
+          @company = Company.find(params[:id])
+        rescue ActiveRecord::RecordNotFound
+          render json: ErrorSerializer.new(
+            message: "Company not found",
+            status: 404
+          ).as_json, status: :not_found
+        end
 
         def company_params
           params.require(:company).permit(
