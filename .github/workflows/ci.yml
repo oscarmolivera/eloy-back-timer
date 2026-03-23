@@ -9,6 +9,10 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgresql://postgres:postgres@localhost/eloy_back_timer_test
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
 
     services:
       postgres:
@@ -35,28 +39,14 @@ jobs:
           bundler-cache: true
 
       - name: Set up database
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgresql://postgres:postgres@localhost/eloy_back_timer_test
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-        run: |
-          bundle exec rails db:create db:migrate
+        run: bundle exec rails db:create db:migrate
 
-      - name: Run specs
+      - name: Run specs and generate OpenAPI
         env:
-          RAILS_ENV: test
-          DATABASE_URL: postgresql://postgres:postgres@localhost/eloy_back_timer_test
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-        run: |
-          bundle exec rspec --format documentation
+          OPENAPI: "1"
+        run: bundle exec rspec --format documentation
 
       - name: Verify OpenAPI spec is up to date
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgresql://postgres:postgres@localhost/eloy_back_timer_test
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          OPENAPI: "1"
         run: |
-          bundle exec rspec
           git diff --exit-code doc/openapi.yaml || \
             (echo "❌ doc/openapi.yaml is out of date. Run OPENAPI=1 bundle exec rspec locally and commit the result." && exit 1)

@@ -1,10 +1,51 @@
 # spec/support/openapi.rb
 require "yaml"
 
-# Always load metadata — needed for spec describe blocks regardless of OPENAPI env var
 OPENAPI_METADATA = YAML.load_file(
   Rails.root.join("spec/support/openapi_metadata.yaml")
 ).deep_symbolize_keys.freeze
+
+module OpenAPIExampleMetadatas
+  def openapi_metadata(key)
+    OPENAPI_METADATA.fetch(key) do
+      raise KeyError, "OpenAPI metadata not found for #{key.inspect}. " \
+                      "Define it in spec/support/openapi_metadata.yaml"
+    end
+  end
+end
+
+def overwrite_openapi_key!(hash, key, value)
+  hash[key] = value if hash.key?(key)
+  hash[key.to_sym] = value if hash.key?(key.to_sym)
+end
+
+def normalize_openapi_examples(value)
+  case value
+  when Array
+    value.map { |item| normalize_openapi_examples(item) }
+  when Hash
+    normalized = value.transform_values { |v| normalize_openapi_examples(v) }
+
+    overwrite_openapi_key!(normalized, "id", 1)
+    overwrite_openapi_key!(normalized, "company_id", 1)
+    overwrite_openapi_key!(normalized, "user_id", 1)
+
+    overwrite_openapi_key!(normalized, "created_at", "2026-01-01T00:00:00Z")
+    overwrite_openapi_key!(normalized, "updated_at", "2026-01-01T00:00:00Z")
+    overwrite_openapi_key!(normalized, "timestamp", "2026-01-01T00:00:00Z")
+
+    overwrite_openapi_key!(normalized, "access_token", "***")
+    overwrite_openapi_key!(normalized, "refresh_token", "***")
+
+    normalized
+  else
+    value
+  end
+end
+
+RSpec.configure do |config|
+  config.include OpenAPIExampleMetadatas
+end
 
 if ENV["OPENAPI"].present?
   require "rspec/openapi"
@@ -39,19 +80,27 @@ if ENV["OPENAPI"].present?
 
   RSpec::OpenAPI.post_process_hook = lambda do |_path, _records, spec|
     spec[:security] = [ { "BearerAuth" => [] } ]
-    spec
-  end
 
-  module OpenAPIExampleMetadatas
-    def openapi_metadata(key)
-      OPENAPI_METADATA.fetch(key) do
-        raise KeyError, "OpenAPI metadata not found for #{key.inspect}. " \
-                        "Define it in spec/support/openapi_metadata.yaml"
+    if spec[:responses].is_a?(Hash)
+      spec[:responses].each_value do |response|
+        next unless response[:content].is_a?(Hash)
+
+        response[:content].each_value do |content|
+          next unless content[:example]
+
+          content[:example] = normalize_openapi_examples(content[:example])
+        end
       end
     end
-  end
 
-  RSpec.configure do |config|
-    config.include OpenAPIExampleMetadatas
+    if spec[:requestBody].is_a?(Hash) && spec[:requestBody][:content].is_a?(Hash)
+      spec[:requestBody][:content].each_value do |content|
+        next unless content[:example]
+
+        content[:example] = normalize_openapi_examples(content[:example])
+      end
+    end
+
+    spec
   end
 end

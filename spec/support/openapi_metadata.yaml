@@ -34,3 +34,7 @@ admin_companies_destroy:
   summary: 'Delete (deactivate) a company by ID'
   tags: ['Admin - Companies']
   security: [{ 'BearerAuth': [] }, { 'ApiKeyAuth': [] }]
+admin_companies_authorization:
+  summary: 'Validate user authorization for Company'
+  tags: ['Admin - Companies']
+  security: [{ 'BearerAuth': [] }, { 'ApiKeyAuth': [] }]

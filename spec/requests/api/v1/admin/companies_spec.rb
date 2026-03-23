@@ -4,13 +4,6 @@ RSpec.describe "API::V1::Admin::Companies", type: :request do
   let(:super_admin)   { create(:user, :super_admin) }
   let(:token)   { JwtService.encode({ user_id: super_admin.id }, 1.hour.from_now) }
 
-  let(:headers) do
-    {
-      "X-API-Key"     => api_key,
-      "Authorization" => "Bearer #{token}"
-    }
-  end
-
   let(:headers) { auth_headers(super_admin) }
 
   describe "GET /api/v1/admin/companies", openapi: OPENAPI_METADATA[:admin_companies_index] do
@@ -21,7 +14,7 @@ RSpec.describe "API::V1::Admin::Companies", type: :request do
 
       expect(response).to have_http_status(:ok)
       expect(json_response).to be_an(Array)
-      expect(json_response.size).to eq(3)
+      expect(json_response.size).to be(3)
     end
   end
 
@@ -71,6 +64,32 @@ RSpec.describe "API::V1::Admin::Companies", type: :request do
 
       expect(response).to have_http_status(:no_content)
       expect(company.reload.active).to be_falsey
+    end
+  end
+
+  describe "authorization", openapi: OPENAPI_METADATA[:admin_companies_authorization] do
+    let(:api_key)     { Rails.application.credentials.dig(:api, :secret_key) }
+    context "with no API key" do
+      it "returns 401 on any companies endpoint" do
+        get "/api/v1/admin/companies"
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context "with valid API key but no JWT token" do
+      it "returns 401" do
+        get "/api/v1/admin/companies", headers: { "X-API-Key" => api_key }
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context "with valid API key and JWT but user is not super_admin" do
+      let(:regular_user) { create(:user, :user) }
+
+      it "returns 403" do
+        get "/api/v1/admin/companies", headers: auth_headers(regular_user)
+        expect(response).to have_http_status(:forbidden)
+      end
     end
   end
 end
