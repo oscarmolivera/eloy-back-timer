@@ -42,6 +42,21 @@ jobs:
         run: |
           bundle exec rails db:create db:migrate
 
+      - name: Debug credentials (important!)
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgresql://postgres:postgres@localhost/eloy_back_timer_test
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+        run: |
+          echo "=== RAILS_MASTER_KEY in env ==="
+          echo "Length: ${#RAILS_MASTER_KEY} characters"
+          echo "Present: $([ -n "$RAILS_MASTER_KEY" ] && echo "YES" || echo "NO")"
+          echo "=== Rails credentials check ==="
+          bundle exec rails runner '
+            key = Rails.application.credentials.dig(:api, :secret_key)
+            puts "API key present in credentials? #{key.present? ? "✅ YES (length: #{key.length})" : "❌ NO"}"
+            puts "Full api section: #{Rails.application.credentials.dig(:api).inspect}"'
+
       - name: Run specs
         env:
           RAILS_ENV: test
