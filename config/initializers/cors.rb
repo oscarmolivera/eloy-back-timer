@@ -13,7 +13,7 @@ def allowed_origins
   if Rails.env.production?
     [
       "https://project-0yzwb.vercel.app",
-      "http://localhost:3000"
+      "http://localhost:3000/*"
     ]
   else
     [
