@@ -17,7 +17,8 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    url: <%= ENV["DATABASE_URL"] %>
+    url: <%= Rails.application.credentials.dig(:database, :url) %>
+    pool: <%= Rails.application.credentials.dig(:database, :pool) %>
     database: eloy_back_timer_production
   cache:
     <<: *primary_production
