@@ -1,5 +1,3 @@
-require "faker"
-
 SEED_COMPANIES = [
   {
     name: "Restaurante Casa Galicia",
