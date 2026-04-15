@@ -88,7 +88,7 @@ paths:
                   - contact_phone_secondary
                   - active
               example:
-              - id: 845
+              - id: 985
                 name: Acme Corporation 18
                 business_name:
                 slug: acme-corporation-18
@@ -106,7 +106,7 @@ paths:
                 contact_phone_main:
                 contact_phone_secondary:
                 active: true
-              - id: 846
+              - id: 986
                 name: Acme Corporation 19
                 business_name:
                 slug: acme-corporation-19
@@ -124,7 +124,7 @@ paths:
                 contact_phone_main:
                 contact_phone_secondary:
                 active: true
-              - id: 847
+              - id: 987
                 name: Acme Corporation 20
                 business_name:
                 slug: acme-corporation-20
@@ -279,7 +279,7 @@ paths:
                 - created_at
                 - updated_at
               example:
-                id: 848
+                id: 988
                 active: true
                 business_name:
                 ccc:
@@ -288,7 +288,7 @@ paths:
                 contact_email:
                 contact_phone_main:
                 contact_phone_secondary:
-                created_at: '2026-03-23T14:48:58Z'
+                created_at: '2026-04-15T22:18:35Z'
                 door:
                 floor:
                 logo_url:
@@ -298,7 +298,7 @@ paths:
                 province:
                 slug: new-test-company
                 street:
-                updated_at: '2026-03-23T14:48:58Z'
+                updated_at: '2026-04-15T22:18:35Z'
   "/api/v1/admin/companies/{id}":
     delete:
       summary: Delete (deactivate) a company by ID
@@ -313,114 +313,10 @@ paths:
         required: true
         schema:
           type: integer
-        example: 851
+        example: 991
       responses:
         '204':
           description: deletes a company
-    get:
-      summary: Get a single company by ID
-      tags:
-      - Admin - Companies
-      security:
-      - BearerAuth: []
-      - ApiKeyAuth: []
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-        example: 849
-      responses:
-        '200':
-          description: returns a single company
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  active:
-                    type: boolean
-                  business_name:
-                    nullable: true
-                  ccc:
-                    nullable: true
-                  cif:
-                    nullable: true
-                  city:
-                    nullable: true
-                  contact_email:
-                    nullable: true
-                  contact_phone_main:
-                    nullable: true
-                  contact_phone_secondary:
-                    nullable: true
-                  created_at:
-                    type: string
-                  door:
-                    nullable: true
-                  floor:
-                    nullable: true
-                  logo_url:
-                    nullable: true
-                  name:
-                    type: string
-                  number:
-                    nullable: true
-                  postal_code:
-                    nullable: true
-                  province:
-                    nullable: true
-                  slug:
-                    type: string
-                  street:
-                    nullable: true
-                  updated_at:
-                    type: string
-                required:
-                - id
-                - name
-                - business_name
-                - slug
-                - cif
-                - ccc
-                - logo_url
-                - city
-                - province
-                - postal_code
-                - street
-                - number
-                - floor
-                - door
-                - contact_email
-                - contact_phone_main
-                - contact_phone_secondary
-                - active
-                - created_at
-                - updated_at
-              example:
-                id: 849
-                active: true
-                business_name:
-                ccc:
-                cif:
-                city:
-                contact_email:
-                contact_phone_main:
-                contact_phone_secondary:
-                created_at: '2026-03-23T14:48:58Z'
-                door:
-                floor:
-                logo_url:
-                name: Acme Corporation 21
-                number:
-                postal_code:
-                province:
-                slug: acme-corporation-21
-                street:
-                updated_at: '2026-03-23T14:48:58Z'
     put:
       summary: Update a company by ID
       tags:
@@ -434,7 +330,7 @@ paths:
         required: true
         schema:
           type: integer
-        example: 850
+        example: 990
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -525,7 +421,7 @@ paths:
               example:
                 name: Updated Company Name
                 slug: acme-corporation-22
-                id: 850
+                id: 990
                 active: true
                 business_name:
                 ccc:
@@ -534,7 +430,7 @@ paths:
                 contact_email:
                 contact_phone_main:
                 contact_phone_secondary:
-                created_at: '2026-03-23T14:48:58Z'
+                created_at: '2026-04-15T22:18:35Z'
                 door:
                 floor:
                 logo_url:
@@ -542,7 +438,109 @@ paths:
                 postal_code:
                 province:
                 street:
-                updated_at: '2026-03-23T14:48:58Z'
+                updated_at: '2026-04-15T22:18:35Z'
+  "/api/v1/admin/company/{slug}":
+    get:
+      summary: show_by_slug
+      tags:
+      - Api::V1::Admin::Company
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        schema:
+          type: string
+        example: acme-corporation-21
+      responses:
+        '200':
+          description: returns a single company given its slug
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  business_name:
+                    nullable: true
+                  slug:
+                    type: string
+                  cif:
+                    nullable: true
+                  ccc:
+                    nullable: true
+                  logo_url:
+                    nullable: true
+                  city:
+                    nullable: true
+                  province:
+                    nullable: true
+                  postal_code:
+                    nullable: true
+                  street:
+                    nullable: true
+                  number:
+                    nullable: true
+                  floor:
+                    nullable: true
+                  door:
+                    nullable: true
+                  contact_email:
+                    nullable: true
+                  contact_phone_main:
+                    nullable: true
+                  contact_phone_secondary:
+                    nullable: true
+                  active:
+                    type: boolean
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                required:
+                - id
+                - name
+                - business_name
+                - slug
+                - cif
+                - ccc
+                - logo_url
+                - city
+                - province
+                - postal_code
+                - street
+                - number
+                - floor
+                - door
+                - contact_email
+                - contact_phone_main
+                - contact_phone_secondary
+                - active
+                - created_at
+                - updated_at
+              example:
+                id: 989
+                name: Acme Corporation 21
+                business_name:
+                slug: acme-corporation-21
+                cif:
+                ccc:
+                logo_url:
+                city:
+                province:
+                postal_code:
+                street:
+                number:
+                floor:
+                door:
+                contact_email:
+                contact_phone_main:
+                contact_phone_secondary:
+                active: true
+                created_at: '2026-04-15T22:18:35Z'
+                updated_at: '2026-04-15T22:18:35Z'
   "/api/v1/auth/login":
     post:
       summary: Log in and obtain JWT access and refresh tokens
@@ -608,10 +606,10 @@ paths:
                 - refresh_token
                 - user
               example:
-                access_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo2NzIsImV4cCI6MTc3NDI3ODIzOX0.zUpp8rNQLyzpb--kqVFTb4QcioT4sbud63YYgK3anE4
-                refresh_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo2NzIsImV4cCI6MTc3NDg4MjEzOX0.jS7b-Q7S_mZSHMHO6r6EePidUyNH8qqCLn3-kQuL16Q
+                access_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NzYsImV4cCI6MTc3NjI5MjQxNX0.9rSGMoo90ZzMSr1n_iXoqWandTDZMr0vsvpQLQtwlUg
+                refresh_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NzYsImV4cCI6MTc3Njg5NjMxNX0.mX_T_sAO5ujz8Mh7HSBeR2NnWjbLNARg6l2nGMzPSdU
                 user:
-                  id: 672
+                  id: 776
                   email: user15@example.com
                   role: user
                   first_name:
@@ -619,7 +617,7 @@ paths:
                   full_name:
                   active: true
                   last_sign_in_at:
-                  company_id: 853
+                  company_id: 993
         '401':
           description: returns 401
           content:
@@ -696,7 +694,7 @@ paths:
                 required:
                 - access_token
               example:
-                access_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo2NzUsImV4cCI6MTc3NDI3ODIzOX0.J-_6SjitW3w_n013wMlmD3q1hadOHmzOGqPh0i7rBfk
+                access_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NzksImV4cCI6MTc3NjI5MjQxNX0.i70MsxYbHD-HaVAfU7UpZfnwWR9pauOyS27b5ZbCNwI
         '401':
           description: returns 401
           content:
@@ -751,7 +749,7 @@ paths:
                 status: ok
                 version: 1.0.0
                 environment: test
-                timestamp: '2026-03-23T14:48:59Z'
+                timestamp: '2026-04-15T22:18:35Z'
                 database: connected
         '401':
           description: returns 401 unauthorized

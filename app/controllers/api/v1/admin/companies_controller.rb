@@ -15,6 +15,18 @@ module Api
           render json: CompanyDetailSerializer.new(@company).as_json
         end
 
+        def show_by_slug
+          company = Company.find_by(slug: params[:slug])
+          if company
+            render json: CompanyDetailSerializer.new(company).as_json
+          else
+            render json: ErrorSerializer.new(
+              message: "Company not found",
+              status: 404
+            ).as_json, status: :not_found
+          end
+        end
+
         def create
           company = Company.new(company_params)
           if company.save

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
       namespace :admin do
         resources :companies, except: [ :new, :edit ]
+        get "company/:slug", to: "companies#show_by_slug", as: :company_by_slug
       end
     end
   end
