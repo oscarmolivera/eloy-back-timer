@@ -43,5 +43,6 @@ module EloyBackTimer
 
     # Allow HTML rendering for the API docs page
     config.middleware.use ActionDispatch::Flash
+    config.middleware.use Rack::Attack
   end
 end
