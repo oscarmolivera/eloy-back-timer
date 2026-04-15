@@ -31,4 +31,5 @@ end
 
 group :production do
   gem "net-pop", github: "ruby/net-pop"
+  gem "rack-attack"
 end
