@@ -6,6 +6,7 @@ gem "jwt"
 gem "kamal", require: false
 gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
+gem "rack-attack"
 gem "rails", "~> 8.1.2"
 gem "rack-cors"
 gem "solid_cache"
@@ -31,5 +32,4 @@ end
 
 group :production do
   gem "net-pop", github: "ruby/net-pop"
-  gem "rack-attack"
 end
