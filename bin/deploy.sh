@@ -3,6 +3,10 @@
 # Akamai Linodes 1GB EloyTimer Deployment Script
 set -e
 
+# Load rbenv (not loaded in non-interactive shells)
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init - bash)"
+
 APP_DIR="/home/deploy/apps/eloy-back-timer"
 cd "$APP_DIR"
 
