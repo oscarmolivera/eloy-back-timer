@@ -32,11 +32,11 @@ RSpec.describe "API::V1::Admin::Companies", type: :request do
     end
   end
 
-  describe "GET /api/v1/admin/companies/:id", openapi: OPENAPI_METADATA[:admin_companies_show] do
+  describe "GET /api/v1/admin/company/:slug", openapi: OPENAPI_METADATA[:admin_companies_show_by_slug] do
     let(:company) { create(:company) }
 
-    it "returns a single company" do
-      get "/api/v1/admin/companies/#{company.id}", headers: headers
+    it "returns a single company given its slug" do
+      get "/api/v1/admin/company/#{company.slug}", headers: headers
 
       expect(response).to have_http_status(:ok)
       expect(json_response).to include(:id, :name, :slug)
