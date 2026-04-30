@@ -3,6 +3,7 @@ GIT
   revision: 30d89b359c940610d84ecd1fed0dba4003508fde
   specs:
     net-pop (0.1.2)
+      net-protocol
 
 GEM
   remote: https://rubygems.org/
@@ -90,7 +91,7 @@ GEM
     bcrypt_pbkdf (1.1.2-arm64-darwin)
     bcrypt_pbkdf (1.1.2-x86_64-darwin)
     bigdecimal (4.0.1)
-    bootsnap (1.23.0)
+    bootsnap (1.24.1)
       msgpack (~> 1.2)
     brakeman (8.0.4)
       racc
