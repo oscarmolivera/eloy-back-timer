@@ -1,8 +1,9 @@
 GIT
   remote: https://github.com/ruby/net-pop.git
-  revision: 30d89b359c940610d84ecd1fed0dba4003508fde
+  revision: 0e54ed7ba2755ccf0c384ec8b05160af88258be4
   specs:
     net-pop (0.1.2)
+      net-protocol
 
 GEM
   remote: https://rubygems.org/
